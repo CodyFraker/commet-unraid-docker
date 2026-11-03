@@ -18,10 +18,10 @@ No config volume is required for normal use.
 
 ## Quick start (Docker Compose)
 
-Replace `CodyFraker` with your GitHub username or org (same as the GHCR namespace).
+Replace `GITHUB_OWNER` with your GitHub username or org in **lowercase** (GHCR image names must be lowercase; for example `codyfraker`).
 
 ```bash
-export CodyFraker=your-github-user
+export GITHUB_OWNER=codyfraker
 export COMMET_VERSION=v0.5.1   # optional; default in compose build args
 export HOST_PORT=8080
 
@@ -35,16 +35,16 @@ Open `http://localhost:8080/`.
 Images are published to:
 
 ```text
-ghcr.io/<CodyFraker>/commet-unraid:<tag>
-ghcr.io/<CodyFraker>/commet-unraid:latest
+ghcr.io/<github-owner-lowercase>/commet-unraid:<tag>
+ghcr.io/<github-owner-lowercase>/commet-unraid:latest
 ```
 
 Example:
 
 ```bash
-docker pull ghcr.io/your-github-user/commet-unraid:latest
+docker pull ghcr.io/codyfraker/commet-unraid:latest
 docker run -d --name commet -p 8080:80 --restart unless-stopped \
-  ghcr.io/your-github-user/commet-unraid:latest
+  ghcr.io/codyfraker/commet-unraid:latest
 ```
 
 ### GHCR visibility
@@ -57,7 +57,7 @@ Packages are **private by default**. Either:
 ## Unraid
 
 1. Copy or link the template from [`unraid/commet-unraid.xml`](unraid/commet-unraid.xml).
-2. Replace every `CodyFraker` placeholder with your GitHub username or org.
+2. Use a **lowercase** GHCR path in `Repository` (for example `ghcr.io/codyfraker/commet-unraid`).
 3. In the Unraid UI: **Docker** → **Add Container** → **Template URL** (raw GitHub URL to your fork’s XML) or paste XML via **User Templates**.
 4. Map **Web Port** (default host `8080` → container `80`).
 5. Apply and open the **WebUI** link.
@@ -106,7 +106,7 @@ docker build --build-arg COMMET_VERSION=v0.5.1 -t commet-unraid:local .
 2. **Settings → Actions → General → Workflow permissions**: allow read and write, and allow GitHub Actions to create and approve pull requests if you use branch protection (optional).
 3. Run **Build and publish** workflow manually (**Actions** → **Build and publish** → **Run workflow**).
 4. Make the GHCR package public or configure registry auth on Unraid.
-5. Replace `CodyFraker` in the Unraid template and compose examples.
+5. Set the lowercase GHCR image name in the Unraid template if your GitHub username differs.
 
 Workflow inputs:
 
