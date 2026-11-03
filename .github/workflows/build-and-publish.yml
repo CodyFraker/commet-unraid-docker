@@ -1,6 +1,14 @@
 name: Build and publish
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - Dockerfile
+      - nginx/**
+      - commet-signing-key.asc
+      - .github/workflows/build-and-publish.yml
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch:
@@ -60,7 +68,7 @@ jobs:
         run: |
           set -euo pipefail
           PACKAGED=$(tr -d ' \n\r' < VERSION)
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "push" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
             if [ "$PACKAGED" != "$TAG" ]; then
               echo "bump_version=true" >> "$GITHUB_OUTPUT"

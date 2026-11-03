@@ -85,7 +85,7 @@ After upgrading the image, if the UI looks stale, hard-refresh or clear site dat
 
 ## Updates
 
-GitHub Actions checks [commetchat/commet releases](https://github.com/commetchat/commet/releases) daily and on manual dispatch. When a new release tag appears, CI builds, verifies, and pushes:
+GitHub Actions builds and pushes on **push to `main`** (when packaging files change), **daily schedule**, and **manual dispatch**. When a new upstream Commet release tag appears on schedule, CI builds, verifies, and pushes:
 
 - `ghcr.io/<owner>/commet-unraid:<tag>`
 - `ghcr.io/<owner>/commet-unraid:latest`
@@ -108,7 +108,9 @@ docker build --build-arg COMMET_VERSION=v0.5.1 -t commet-unraid:local .
 4. Make the GHCR package public or configure registry auth on Unraid.
 5. Set the lowercase GHCR image name in the Unraid template if your GitHub username differs.
 
-Workflow inputs:
+Push triggers (paths): `Dockerfile`, `nginx/**`, `commet-signing-key.asc`, and `.github/workflows/build-and-publish.yml`. Commits that only bump [`VERSION`](VERSION) or the Unraid template do not retrigger a build.
+
+Workflow inputs (manual run only):
 
 - **commet_version** — optional; build a specific upstream tag (for example `v0.5.1`). Defaults to the latest upstream release.
 - **force_rebuild** — reserved for future use; **Run workflow** always builds and pushes. Scheduled runs skip when [`VERSION`](VERSION) already matches the latest upstream tag.
