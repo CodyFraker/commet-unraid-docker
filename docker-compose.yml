@@ -1,0 +1,10 @@
+services:
+  commet:
+    build:
+      context: .
+      args:
+        COMMET_VERSION: ${COMMET_VERSION:-v0.5.1}
+    image: ghcr.io/${CodyFraker:-CodyFraker}/commet-unraid:${COMMET_VERSION:-latest}
+    ports:
+      - "${HOST_PORT:-8080}:80"
+    restart: unless-stopped

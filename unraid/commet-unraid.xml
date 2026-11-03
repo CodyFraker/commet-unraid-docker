@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>commet-unraid</Name>
+  <Repository>ghcr.io/CodyFraker/commet-unraid</Repository>
+  <Registry>https://ghcr.io</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/CodyFraker/commet-unraid</Support>
+  <Project>https://github.com/commetchat/commet</Project>
+  <Overview>Self-hosted Commet Matrix web client (official upstream web release, PGP-verified at build). Client only—connects to external Matrix homeservers. Session data stays in your browser.</Overview>
+  <Category>Communication:Social</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <TemplateURL>https://github.com/CodyFraker/commet-unraid/raw/main/unraid/commet-unraid.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/commetchat/commet/main/commet/assets/images/app_icon/app_icon_rounded.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1730000000</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Tag>v0.5.1</Tag>
+  <Config Name="Web Port" Target="80" Default="8080" Mode="tcp" Description="HTTP port for the Commet web UI" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+</Container>
