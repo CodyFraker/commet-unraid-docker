@@ -10,6 +10,14 @@ This project is **not** affiliated with commetchat. It is **not** [CometChat](ht
 - **Subdomain at `/`** hosting (for example `https://commet.example.com/`). Subpath installs (for example `/commet/`) are not supported with the upstream web build.
 - Release tarballs are **PGP-verified** at image build time using the key published in the [Commet README](https://github.com/commetchat/commet).
 
+## Browser compatibility
+
+Commet Web uses Flutter (CanvasKit/skwasm) and WebGL. **Mozilla Firefox** may run the UI at very low frame rates (sluggish scrolling and animations) even when `about:support` reports WebGL as available. This appears to be a **Firefox + Flutter Web** interaction, not an issue with the Docker image or nginx.
+
+**Recommendation:** Use **Chromium**, **Google Chrome**, or **Microsoft Edge** for the self-hosted web client. If you use Firefox, expect reduced performance; report upstream at [commetchat/commet](https://github.com/commetchat/commet) if you want Firefox-specific fixes.
+
+Self-hosted builds serve the same upstream `commet-web` artifacts as official releases; browser choice affects all hosts equally.
+
 ## Session and encryption data
 
 Web logins and E2EE keys are stored in **your browser** (IndexedDB / localStorage), not in Docker volumes. Updating or recreating the container does not log you out. Clearing site data for this host does.
