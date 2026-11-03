@@ -31,10 +31,26 @@ LABEL org.opencontainers.image.title="commet-unraid" \
     org.opencontainers.image.version="${COMMET_VERSION}" \
     org.opencontainers.image.licenses="AGPL-3.0"
 
+RUN apk add --no-cache openssl
+
 COPY --from=commet-web /tmp/commet/web /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/snippets/commet-app.conf /etc/nginx/snippets/commet-app.conf
+COPY scripts/docker-entrypoint.sh /docker-entrypoint.sh
 
-EXPOSE 80
+RUN chmod +x /docker-entrypoint.sh
+
+ENV DEFAULT_HOMESERVER="" \
+    TLS_SELF_SIGNED="false" \
+    TLS_HOSTNAME="commet.local" \
+    TLS_CERT_FILE="/etc/nginx/ssl/cert.pem" \
+    TLS_KEY_FILE="/etc/nginx/ssl/key.pem" \
+    HTTPS_PORT="443" \
+    TLS_PUBLIC_PORT="443"
+
+EXPOSE 80 443
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1
+    CMD sh -c 'wget -q -O /dev/null http://127.0.0.1/ 2>/dev/null || wget -q -O /dev/null --no-check-certificate https://127.0.0.1:443/'
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -9,9 +9,9 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/CodyFraker/commet-unraid</Support>
   <Project>https://github.com/commetchat/commet</Project>
-  <Overview>Self-hosted Commet Matrix web client (official upstream web release, PGP-verified at build). Client only—connects to external Matrix homeservers. Session data stays in your browser.</Overview>
+  <Overview>Self-hosted Commet Matrix web client (official upstream web release, PGP-verified at build). Client only—connects to external Matrix homeservers. Session data stays in your browser. Enable TLS for browser crypto (E2EE). Optional DEFAULT_HOMESERVER pre-fills the login screen.</Overview>
   <Category>Communication:Social</Category>
-  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <WebUI>https://[IP]:[PORT:8443]/</WebUI>
   <TemplateURL>https://github.com/CodyFraker/commet-unraid/raw/main/unraid/commet-unraid.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/commetchat/commet/main/commet/assets/images/app_icon/app_icon_rounded.png</Icon>
   <ExtraParams/>
@@ -22,5 +22,11 @@
   <DonateLink/>
   <Requires/>
   <Tag>v0.5.1</Tag>
-  <Config Name="Web Port" Target="80" Default="8080" Mode="tcp" Description="HTTP port for the Commet web UI" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Web Port" Target="80" Default="8080" Mode="tcp" Description="HTTP port (redirects to HTTPS when TLS is enabled)" Type="Port" Display="always" Required="false" Mask="false">8080</Config>
+  <Config Name="Web UI SSL Port" Target="443" Default="8443" Mode="tcp" Description="HTTPS port for the Commet web UI" Type="Port" Display="always" Required="true" Mask="false">8443</Config>
+  <Config Name="DEFAULT_HOMESERVER" Target="DEFAULT_HOMESERVER" Default="" Mode="" Description="Default Matrix homeserver hostname (for example matrix.example.com). Maps to Commet global_config.json." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="TLS_SELF_SIGNED" Target="TLS_SELF_SIGNED" Default="true" Mode="" Description="Generate a self-signed certificate on first start if no cert is mounted in /etc/nginx/ssl" Type="Variable" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="TLS_HOSTNAME" Target="TLS_HOSTNAME" Default="commet.local" Mode="" Description="Certificate CN/SAN when using TLS_SELF_SIGNED (use the hostname you type in the browser)" Type="Variable" Display="always" Required="false" Mask="false">commet.local</Config>
+  <Config Name="TLS_PUBLIC_PORT" Target="TLS_PUBLIC_PORT" Default="8443" Mode="" Description="Host HTTPS port used in HTTP-to-HTTPS redirects (match Web UI SSL Port)" Type="Variable" Display="advanced" Required="false" Mask="false">8443</Config>
+  <Config Name="TLS Certificate Storage" Target="/etc/nginx/ssl" Default="/mnt/user/appdata/commet-unraid/ssl" Mode="rw" Description="Persist generated or mounted TLS certificate and key" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/commet-unraid/ssl</Config>
 </Container>
