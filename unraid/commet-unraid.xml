@@ -21,7 +21,7 @@
   <DonateText/>
   <DonateLink/>
   <Requires/>
-  <Tag>v0.5.1</Tag>
+  <Tag>v0.5.2</Tag>
   <Config Name="Web Port" Target="80" Default="8080" Mode="tcp" Description="HTTP port (redirects to HTTPS when TLS is enabled)" Type="Port" Display="always" Required="false" Mask="false">8080</Config>
   <Config Name="Web UI SSL Port" Target="443" Default="8443" Mode="tcp" Description="HTTPS port for the Commet web UI" Type="Port" Display="always" Required="true" Mask="false">8443</Config>
   <Config Name="DEFAULT_HOMESERVER" Target="DEFAULT_HOMESERVER" Default="" Mode="" Description="Default Matrix homeserver hostname (for example matrix.example.com). Maps to Commet global_config.json." Type="Variable" Display="always" Required="false" Mask="false"/>
